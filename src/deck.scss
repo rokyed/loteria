@@ -8,8 +8,8 @@
 
 	[data-card] {
 		margin: 5px;
-		height: 200px;
-		width: 150px;
+		height: 100px;
+		width: 75px;
 		border: 1px solid #000;
 		border-radius: 3px;
 		padding: 2px;
@@ -23,6 +23,13 @@
 		[data-label] {
 			display: none;
 			flex: 0 0 auto;
+			font-size: 10px;
+		}
+
+		&:hover {
+			[data-label] {
+				display: block;
+			}
 		}
 
 		[data-image] {
@@ -46,6 +53,7 @@
 		[data-card] {
 			[data-label] {
 				display: block;
+				font-size: 15px;
 			}
 
 			width: 225px;

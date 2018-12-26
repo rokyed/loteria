@@ -456,7 +456,51 @@ module.exports = {
    */
 
 };
-},{"./classes/Element.js":"../node_modules/wrench-set/lib/classes/Element.js"}],"resources/1.jpg":[function(require,module,exports) {
+},{"./classes/Element.js":"../node_modules/wrench-set/lib/classes/Element.js"}],"title.scss":[function(require,module,exports) {
+module.exports = {
+  "title": "_title_1ofn7_1"
+};
+},{}],"title.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _wrenchSet = require("wrench-set");
+
+var _title = _interopRequireDefault(require("./title.scss"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (_typeof(call) === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + _typeof(superClass)); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Title = function (_Element) {
+  _inherits(Title, _Element);
+
+  function Title() {
+    _classCallCheck(this, Title);
+
+    return _possibleConstructorReturn(this, _Element.call(this, {
+      innerHTML: "Loteria!!",
+      className: _title.default.title,
+      renderTo: document.body
+    }));
+  }
+
+  return Title;
+}(_wrenchSet.Element);
+
+var _default = Title;
+exports.default = _default;
+},{"wrench-set":"../node_modules/wrench-set/lib/index.js","./title.scss":"title.scss"}],"resources/1.jpg":[function(require,module,exports) {
 module.exports = "/1.dc855c80.jpg";
 },{}],"resources/2.jpg":[function(require,module,exports) {
 module.exports = "/2.69da44a4.jpg";
@@ -799,7 +843,7 @@ var _default = {
 exports.default = _default;
 },{"./resources/1.jpg":"resources/1.jpg","./resources/2.jpg":"resources/2.jpg","./resources/3.jpg":"resources/3.jpg","./resources/4.jpg":"resources/4.jpg","./resources/5.jpg":"resources/5.jpg","./resources/6.jpg":"resources/6.jpg","./resources/7.jpg":"resources/7.jpg","./resources/8.jpg":"resources/8.jpg","./resources/9.jpg":"resources/9.jpg","./resources/10.jpg":"resources/10.jpg","./resources/11.jpg":"resources/11.jpg","./resources/12.jpg":"resources/12.jpg","./resources/13.jpg":"resources/13.jpg","./resources/14.jpg":"resources/14.jpg","./resources/15.jpg":"resources/15.jpg","./resources/16.jpg":"resources/16.jpg","./resources/17.jpg":"resources/17.jpg","./resources/18.jpg":"resources/18.jpg","./resources/19.jpg":"resources/19.jpg","./resources/20.jpg":"resources/20.jpg","./resources/21.jpg":"resources/21.jpg","./resources/22.jpg":"resources/22.jpg","./resources/23.jpg":"resources/23.jpg","./resources/24.jpg":"resources/24.jpg","./resources/25.jpg":"resources/25.jpg","./resources/26.jpg":"resources/26.jpg","./resources/27.jpg":"resources/27.jpg","./resources/28.jpg":"resources/28.jpg","./resources/29.jpg":"resources/29.jpg","./resources/30.jpg":"resources/30.jpg","./resources/31.jpg":"resources/31.jpg","./resources/32.jpg":"resources/32.jpg","./resources/33.jpg":"resources/33.jpg","./resources/34.jpg":"resources/34.jpg","./resources/35.jpg":"resources/35.jpg","./resources/36.jpg":"resources/36.jpg","./resources/37.jpg":"resources/37.jpg","./resources/38.jpg":"resources/38.jpg","./resources/39.jpg":"resources/39.jpg","./resources/40.jpg":"resources/40.jpg","./resources/41.jpg":"resources/41.jpg","./resources/42.jpg":"resources/42.jpg","./resources/43.jpg":"resources/43.jpg","./resources/44.jpg":"resources/44.jpg","./resources/45.jpg":"resources/45.jpg","./resources/46.jpg":"resources/46.jpg","./resources/47.jpg":"resources/47.jpg","./resources/48.jpg":"resources/48.jpg","./resources/49.jpg":"resources/49.jpg","./resources/50.jpg":"resources/50.jpg","./resources/51.jpg":"resources/51.jpg","./resources/52.jpg":"resources/52.jpg","./resources/53.jpg":"resources/53.jpg","./resources/54.jpg":"resources/54.jpg"}],"deck.scss":[function(require,module,exports) {
 module.exports = {
-  "deck": "_deck_1xxg0_1"
+  "deck": "_deck_1dwoj_1"
 };
 },{}],"deck.js":[function(require,module,exports) {
 "use strict";
@@ -860,6 +904,8 @@ var Deck = function (_Element) {
   Deck.prototype.animate = function animate(targetId, deck) {
     var _this2 = this;
 
+    deck = JSON.parse(JSON.stringify(deck));
+    deck.push(targetId);
     this.iterator = this.iteratorInitials.iterator;
     this.increment = this.iteratorInitials.increment;
     this.iteratorTarget = this.iteratorInitials.iteratorTarget;
@@ -877,7 +923,7 @@ var Deck = function (_Element) {
 
       _this2.iterator++;
 
-      if (_this2.iteratorTarget > _this2.maxIteratorTarget) {
+      if (_this2.iteratorTarget > _this2.maxIteratorTarget || deck.length == 1) {
         requestAnimationFrame(function () {
           _this2.showcase(targetId);
         });
@@ -958,6 +1004,11 @@ var Bar = function (_Element) {
     return _this;
   }
 
+  Bar.prototype.togglePlayButton = function togglePlayButton(bEn) {
+    var el = this.getElement('[data-button="play"]');
+    if (bEn) el.removeAttribute('data-disabled');else el.setAttribute('data-disabled', 'true');
+  };
+
   Bar.prototype.toggleButtons = function toggleButtons(bEn) {
     var el = this.getElement();
     var buttons = el.querySelectorAll('[data-button]');
@@ -994,6 +1045,8 @@ module.exports = {};
 },{}],"main.js":[function(require,module,exports) {
 "use strict";
 
+var _title = _interopRequireDefault(require("./title.js"));
+
 var _deck = _interopRequireDefault(require("./deck.js"));
 
 var _bar = _interopRequireDefault(require("./bar.js"));
@@ -1008,6 +1061,7 @@ var Game = function () {
   function Game() {
     _classCallCheck(this, Game);
 
+    this.title = new _title.default({});
     this.deckView = new _deck.default({
       game: this
     });
@@ -1016,6 +1070,10 @@ var Game = function () {
     });
     this.reset();
   }
+
+  Game.prototype.togglePlayButton = function togglePlayButton(bEn) {
+    this.bar.togglePlayButton(bEn);
+  };
 
   Game.prototype.toggleButtons = function toggleButtons(bEn) {
     this.bar.toggleButtons(bEn);
@@ -1039,6 +1097,7 @@ var Game = function () {
     this.spentCards = [];
     this.prepareDeck();
     this.deckView.update(this.spentCards);
+    this.toggleButtons(true);
   };
 
   Game.prototype.play = function play() {
@@ -1051,5 +1110,5 @@ var Game = function () {
 }();
 
 window.game = new Game();
-},{"./deck.js":"deck.js","./bar.js":"bar.js","./main.scss":"main.scss"}]},{},["main.js"], null)
+},{"./title.js":"title.js","./deck.js":"deck.js","./bar.js":"bar.js","./main.scss":"main.scss"}]},{},["main.js"], null)
 //# sourceMappingURL=/main.1f19ae8e.map

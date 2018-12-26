@@ -39,6 +39,9 @@ export default class Deck extends Element {
 	}
 
 	animate(targetId, deck) {
+		deck = JSON.parse(JSON.stringify(deck))
+		deck.push(targetId)
+
 		this.iterator = this.iteratorInitials.iterator
 		this.increment = this.iteratorInitials.increment
 		this.iteratorTarget = this.iteratorInitials.iteratorTarget
@@ -56,7 +59,7 @@ export default class Deck extends Element {
 			}
 			this.iterator++
 
-			if (this.iteratorTarget > this.maxIteratorTarget) {
+			if (this.iteratorTarget > this.maxIteratorTarget || deck.length == 1) {
 				requestAnimationFrame(() => {
 					this.showcase(targetId)
 				})

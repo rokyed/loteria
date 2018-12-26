@@ -1,9 +1,13 @@
+import Title from './title.js'
 import Deck from './deck.js'
 import Bar from './bar.js'
 import './main.scss'
 
 class Game {
 	constructor() {
+		this.title = new Title({
+
+		})
 		this.deckView = new Deck({
 			game: this
 		})
@@ -11,6 +15,9 @@ class Game {
 			game: this
 		})
 		this.reset()
+	}
+	togglePlayButton(bEn) {
+		this.bar.togglePlayButton(bEn)
 	}
 
 	toggleButtons(bEn) {
@@ -36,6 +43,7 @@ class Game {
 		this.spentCards = []
 		this.prepareDeck()
 		this.deckView.update(this.spentCards)
+		this.toggleButtons(true)
 	}
 
 	play() {
