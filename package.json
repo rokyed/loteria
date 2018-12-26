@@ -1,0 +1,23 @@
+{
+  "name": "loteria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/parcel --no-hmr --no-cache ./src/index.html --out-dir ./dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-sass": "^4.11.0",
+    "parcel": "^1.11.0",
+    "postcss": "^7.0.7",
+    "wrench-set": "^1.0.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "postcss-modules": "^1.4.1",
+    "sass": "^1.15.2"
+  }
+}
