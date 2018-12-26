@@ -13,6 +13,10 @@ class Game {
 		this.reset()
 	}
 
+	toggleButtons(bEn) {
+		this.bar.toggleButtons(bEn)
+	}
+
 	prepareDeck() {
 		this.deck = []
 
@@ -39,7 +43,7 @@ class Game {
 
 		this.moveCardFromDeck(rand)
 
-		this.deckView.update(this.spentCards)
+		this.deckView.update(this.spentCards, this.deck)
 	}
 }
 

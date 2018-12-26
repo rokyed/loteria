@@ -799,7 +799,7 @@ var _default = {
 exports.default = _default;
 },{"./resources/1.jpg":"resources/1.jpg","./resources/2.jpg":"resources/2.jpg","./resources/3.jpg":"resources/3.jpg","./resources/4.jpg":"resources/4.jpg","./resources/5.jpg":"resources/5.jpg","./resources/6.jpg":"resources/6.jpg","./resources/7.jpg":"resources/7.jpg","./resources/8.jpg":"resources/8.jpg","./resources/9.jpg":"resources/9.jpg","./resources/10.jpg":"resources/10.jpg","./resources/11.jpg":"resources/11.jpg","./resources/12.jpg":"resources/12.jpg","./resources/13.jpg":"resources/13.jpg","./resources/14.jpg":"resources/14.jpg","./resources/15.jpg":"resources/15.jpg","./resources/16.jpg":"resources/16.jpg","./resources/17.jpg":"resources/17.jpg","./resources/18.jpg":"resources/18.jpg","./resources/19.jpg":"resources/19.jpg","./resources/20.jpg":"resources/20.jpg","./resources/21.jpg":"resources/21.jpg","./resources/22.jpg":"resources/22.jpg","./resources/23.jpg":"resources/23.jpg","./resources/24.jpg":"resources/24.jpg","./resources/25.jpg":"resources/25.jpg","./resources/26.jpg":"resources/26.jpg","./resources/27.jpg":"resources/27.jpg","./resources/28.jpg":"resources/28.jpg","./resources/29.jpg":"resources/29.jpg","./resources/30.jpg":"resources/30.jpg","./resources/31.jpg":"resources/31.jpg","./resources/32.jpg":"resources/32.jpg","./resources/33.jpg":"resources/33.jpg","./resources/34.jpg":"resources/34.jpg","./resources/35.jpg":"resources/35.jpg","./resources/36.jpg":"resources/36.jpg","./resources/37.jpg":"resources/37.jpg","./resources/38.jpg":"resources/38.jpg","./resources/39.jpg":"resources/39.jpg","./resources/40.jpg":"resources/40.jpg","./resources/41.jpg":"resources/41.jpg","./resources/42.jpg":"resources/42.jpg","./resources/43.jpg":"resources/43.jpg","./resources/44.jpg":"resources/44.jpg","./resources/45.jpg":"resources/45.jpg","./resources/46.jpg":"resources/46.jpg","./resources/47.jpg":"resources/47.jpg","./resources/48.jpg":"resources/48.jpg","./resources/49.jpg":"resources/49.jpg","./resources/50.jpg":"resources/50.jpg","./resources/51.jpg":"resources/51.jpg","./resources/52.jpg":"resources/52.jpg","./resources/53.jpg":"resources/53.jpg","./resources/54.jpg":"resources/54.jpg"}],"deck.scss":[function(require,module,exports) {
 module.exports = {
-  "deck": "_deck_j7ac4_1"
+  "deck": "_deck_1xxg0_1"
 };
 },{}],"deck.js":[function(require,module,exports) {
 "use strict";
@@ -828,20 +828,75 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Deck = function (_Element) {
   _inherits(Deck, _Element);
 
-  function Deck() {
+  function Deck(config) {
     _classCallCheck(this, Deck);
 
-    return _possibleConstructorReturn(this, _Element.call(this, {
+    var _this = _possibleConstructorReturn(this, _Element.call(this, {
       renderTo: document.body,
       className: _deck.default.deck,
-      innerHTML: "\n\t\t\t\t<div data-type=\"deck\">\n\t\t\t\t</div>\n\t\t\t"
+      innerHTML: "\n\t\t\t\t<div data-type=\"showcase\">\n\t\t\t\t</div>\n\t\t\t\t<div data-type=\"deck\">\n\t\t\t\t</div>\n\t\t\t"
     }));
+
+    _this.game = config.game;
+    _this.data = _data.default;
+    _this.interval = null;
+    _this.iterator = 0;
+    _this.increment = 1;
+    _this.iteratorTarget = 1;
+    _this.maxIteratorTarget = 60;
+    _this.iteratorInitials = {
+      iterator: 0,
+      increment: 4,
+      iteratorTarget: 1
+    };
+    return _this;
   }
 
-  Deck.prototype.update = function update(spentCards) {
+  Deck.prototype.update = function update(spentCards, deck) {
+    this.fillSpent(spentCards);
+    if (spentCards.length > 0) this.animate(spentCards[spentCards.length - 1], deck);else this.showcase(false);
+  };
+
+  Deck.prototype.animate = function animate(targetId, deck) {
+    var _this2 = this;
+
+    this.iterator = this.iteratorInitials.iterator;
+    this.increment = this.iteratorInitials.increment;
+    this.iteratorTarget = this.iteratorInitials.iteratorTarget;
+    clearInterval(this.interval);
+    this.game.toggleButtons(false);
+    this.interval = setInterval(function () {
+      if (_this2.iteratorTarget <= _this2.iterator) {
+        _this2.iterator = 0;
+        _this2.iteratorTarget += _this2.increment;
+        var rand = Math.floor(Math.random(Date.now()) * deck.length);
+        requestAnimationFrame(function () {
+          _this2.showcase(deck[rand]);
+        });
+      }
+
+      _this2.iterator++;
+
+      if (_this2.iteratorTarget > _this2.maxIteratorTarget) {
+        requestAnimationFrame(function () {
+          _this2.showcase(targetId);
+        });
+        clearInterval(_this2.interval);
+
+        _this2.game.toggleButtons(true);
+      }
+    }, 1);
+  };
+
+  Deck.prototype.showcase = function showcase(id) {
+    var el = this.getElement('[data-type="showcase"]');
+    if (id === false) el.innerHTML = '';else el.innerHTML = this.generateCard(id);
+  };
+
+  Deck.prototype.fillSpent = function fillSpent(spentCards) {
     var html = '';
 
-    for (var i = spentCards.length - 1; i >= 0; i--) {
+    for (var i = spentCards.length - 2; i >= 0; i--) {
       html += this.generateCard(spentCards[i]);
     }
 
@@ -849,7 +904,8 @@ var Deck = function (_Element) {
   };
 
   Deck.prototype.generateCard = function generateCard(id) {
-    return "\n\t\t<div data-card=\"".concat(id, "\">\n\t\t\t<img src=\"").concat(_data.default.IMAGES[id], "\"/>\n\t\t\t<div>").concat(_data.default.CARDS[id], "</div>\n\t\t</div>\n\t\t");
+    if (_data.default.CARDS[id] === undefined) console.log(id);
+    return "\n\t\t\t<div data-card=\"".concat(id, "\">\n\t\t\t\t<div data-label=\"true\">").concat(_data.default.CARDS[id], "</div>\n\t\t\t\t<div data-image=\"true\" style=\"background-image: url('").concat(_data.default.IMAGES[id], "')\"></div>\n\t\t\t</div>\n\t\t");
   };
 
   return Deck;
@@ -859,7 +915,7 @@ var _default = Deck;
 exports.default = _default;
 },{"wrench-set":"../node_modules/wrench-set/lib/index.js","./data.js":"data.js","./deck.scss":"deck.scss"}],"bar.scss":[function(require,module,exports) {
 module.exports = {
-  "bar": "_bar_wce28_1"
+  "bar": "_bar_18w1z_1"
 };
 },{}],"bar.js":[function(require,module,exports) {
 "use strict";
@@ -902,8 +958,18 @@ var Bar = function (_Element) {
     return _this;
   }
 
+  Bar.prototype.toggleButtons = function toggleButtons(bEn) {
+    var el = this.getElement();
+    var buttons = el.querySelectorAll('[data-button]');
+
+    for (var i = 0; i < buttons.length; i++) {
+      if (bEn) buttons[i].removeAttribute('data-disabled');else buttons[i].setAttribute('data-disabled', 'true');
+    }
+  };
+
   Bar.prototype.onClick = function onClick(e) {
     var target = e.getTarget('[data-button]');
+    if (e.getTarget('[data-disabled]')) return;
     if (!target) return;
     var action = target.getAttribute('data-button');
 
@@ -951,6 +1017,10 @@ var Game = function () {
     this.reset();
   }
 
+  Game.prototype.toggleButtons = function toggleButtons(bEn) {
+    this.bar.toggleButtons(bEn);
+  };
+
   Game.prototype.prepareDeck = function prepareDeck() {
     this.deck = [];
 
@@ -974,7 +1044,7 @@ var Game = function () {
   Game.prototype.play = function play() {
     var rand = Math.floor(Math.random(Date.now()) * this.deck.length);
     this.moveCardFromDeck(rand);
-    this.deckView.update(this.spentCards);
+    this.deckView.update(this.spentCards, this.deck);
   };
 
   return Game;

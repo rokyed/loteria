@@ -16,8 +16,22 @@ export default class Bar extends Element {
 		this.on('click', this.onClick)
 	}
 
+	toggleButtons(bEn) {
+		let el = this.getElement()
+		let buttons = el.querySelectorAll('[data-button]')
+
+		for (let i = 0; i < buttons.length; i++)
+			if (bEn)
+				buttons[i].removeAttribute('data-disabled')
+			else
+				buttons[i].setAttribute('data-disabled', 'true')
+	}
+
 	onClick(e) {
 		let target = e.getTarget('[data-button]')
+
+		if (e.getTarget('[data-disabled]'))
+			return
 
 		if (!target)
 			return

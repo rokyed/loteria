@@ -1,4 +1,5 @@
 :local(.deck) {
+
 	[data-type="deck"] {
 		display: flex;
 		flex-direction: row;
@@ -12,13 +13,43 @@
 		border: 1px solid #000;
 		border-radius: 3px;
 		padding: 2px;
+		margin-top: auto;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		background: #fff;
+		box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
+		[data-label] {
+			display: none;
+			flex: 0 0 auto;
+		}
 
-		&:first-child {
-			border: 1px solid #f00;
+		[data-image] {
+			flex: 1 1 auto;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
 		}
 
 		div {
 			text-align: center;
+		}
+	}
+
+	[data-type="showcase"] {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		[data-card] {
+			[data-label] {
+				display: block;
+			}
+
+			width: 225px;
+			height: 300px;
 		}
 	}
 }
