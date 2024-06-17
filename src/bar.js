@@ -1,5 +1,5 @@
 import {Element} from 'wrench-set'
-import style from './bar.scss'
+import * as style from './bar.module.scss'
 export default class Bar extends Element {
 	constructor(config) {
 		super({
