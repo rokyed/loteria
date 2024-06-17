@@ -4,3 +4,6 @@ This is a tool for the game [Wikipedia](https://en.wikipedia.org/wiki/Loter%C3%A
 
 Para todos los mexicanos que quieren jugar a la loteria. Aqui estan las cartas, asi que trajen sus tablas!
 
+# Contribute
+
+If you want to contribute, just create a PR :)
