@@ -6,8 +6,8 @@ export default class Bar extends Element {
 			renderTo: document.body,
 			className: style.bar,
 			innerHTML: `
-				<div data-button="play">Jugar</div>
-				<div data-button="reset">Reinitiar</div>
+				<button data-button="play" data-animated-button="true">Elije tarjeta</button>
+				<button data-button="reset">Reiniciar</button>
 			`
 		})
 
