@@ -9,7 +9,7 @@
 	[data-type="deck"] {
 		display: flex;
 		flex-direction: row;
-		flex-wrap: wrap;
+		flex-wrap: no-wrap;
 		overflow-x: auto;
 	}
 

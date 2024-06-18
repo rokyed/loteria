@@ -1,12 +1,12 @@
 import {Element} from 'wrench-set'
-import * as style from './bar.module.scss'
-export default class Bar extends Element {
+import * as style from './header.module.scss'
+export default class Header extends Element {
 	constructor(config) {
 		super({
 			renderTo: document.body,
-			className: style.bar,
+			className: style.header,
 			innerHTML: `
-				<button data-button="play" data-animated-button="true">Siguente tarjeta</button>
+				<button data-button="reset">Reiniciar</button>
 			`
 		})
 
@@ -16,15 +16,9 @@ export default class Bar extends Element {
 	}
 
 	togglePlayButton(bEn) {
-		let el = this.getElement('[data-button="play"]')
-
-		if (bEn)
-			el.removeAttribute('data-disabled')
-		else
-			el.setAttribute('data-disabled', 'true')
 	}
 
-	toggleButtons(bEn, bInit) {
+	toggleButtons(bEn) {
 		let el = this.getElement()
 		let buttons = el.querySelectorAll('[data-button]')
 
@@ -33,16 +27,6 @@ export default class Bar extends Element {
 				buttons[i].removeAttribute('data-disabled')
 			else
 				buttons[i].setAttribute('data-disabled', 'true')
-
-    let pEl = this.getElement('[data-button="play"]')
-
-    if (pEl) {
-      if (bInit) {
-        pEl.innerHTML = "Inicio"
-      } else {
-        pEl.innerHTML = "Siguente"
-      }
-    }
 	}
 
 	onClick(e) {

@@ -1,12 +1,9 @@
-.bar {
-	position: fixed;
+.header {
 	bottom: 0;
 	left: 0;
 	right: 0;
 	display: flex;
-	justify-content: center;
-	background: rgba(0,0,0,0.2);
-
+	justify-content: space-between;
   
 
 	[data-button] {
